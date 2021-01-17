@@ -30,7 +30,8 @@ function Wizard({onSubmit: _onSubmit, ...props}) {
     },
   });
 
-  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
+//  prepend, remove, swap, move, insert
+  const { fields, append } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
     name: "series", // unique name for your Field Array
   });
