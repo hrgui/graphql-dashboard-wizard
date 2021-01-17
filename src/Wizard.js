@@ -24,8 +24,9 @@ function Wizard({onSubmit: _onSubmit, ...props}) {
       series: [
         {
           label: "Logins",
-          primary: "player_logins.timestamp",
-          secondary: "player_logins.count",
+          datasource: "player_logins",
+          primary: "timestamp",
+          secondary: "count",
         },
       ],
     },
@@ -105,6 +106,15 @@ function Wizard({onSubmit: _onSubmit, ...props}) {
                   name={`series[${index}].label`}
                   ref={register()} // register() when there is no validation rules
                   defaultValue={field.label} // make sure to include defaultValue
+                />
+              </div>
+              <div>
+                Datasource
+                <input
+                  style={{ width: "100%" }}
+                  name={`series[${index}].datasource`}
+                  ref={register()} // register() when there is no validation rules
+                  defaultValue={field.datasource} // make sure to include defaultValue
                 />
               </div>
               <div>

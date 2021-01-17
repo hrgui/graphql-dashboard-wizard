@@ -1,6 +1,7 @@
 import React from 'react'
 import { Chart } from "react-charts";
-import faker from 'faker';
+import {get} from 'lodash';
+const data = {player_logins: require('./data.json')};
 
 function DashboardWidget(props) {
   const series = React.useMemo(
@@ -24,54 +25,25 @@ function DashboardWidget(props) {
     []
   );
 
-  const data = React.useMemo(() => [{
-    "label": "Series 1",
-    "data": [
-      {
-        "primary": faker.date.recent(10),
-        "secondary": 17
-      },
-      {
-        "primary": faker.date.recent(10),
-        "secondary": 88
-      },
-      {
-        "primary": faker.date.recent(10),
-        "secondary": 94
-      },
-      {
-        "primary": faker.date.recent(10),
-        "secondary": 97
-      },
-      {
-        "primary": faker.date.recent(10),
-        "secondary": 57
-      },
-      {
-        "primary": faker.date.recent(10),
-        "secondary": 61
-      },
-      {
-        "primary": faker.date.recent(10),
-        "secondary": 73
-      },
-      {
-        "primary": faker.date.recent(10),
-        "secondary": 53
-      },
-      {
-        "primary": faker.date.recent(10),
-        "secondary": 56
-      },
-      {
-        "primary": faker.date.recent(10),
-        "secondary": 22
-      }
-    ]
-  }], []);
+  const _data = React.useMemo(() => props.series.map(series => {
+    const datasource = get(data, series.datasource);
+    
+    return {
+      label: series.label,
+      data: datasource.map(dataSourceRecord => {
+        // TODO radius support
+        // TODO: assume it may not be date
+        return {
+          primary: new Date(get(dataSourceRecord, series.primary)),
+          secondary: get(dataSourceRecord, series.secondary)
+        }
+      })
+    }
+
+  }) , [props.series]);
 
   return (
-    <Chart data={data} series={series} axes={axes} tooltip />
+    <Chart data={_data} series={series} axes={axes} tooltip />
   )
 }
 
