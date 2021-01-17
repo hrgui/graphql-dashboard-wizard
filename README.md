@@ -1,70 +1,265 @@
-# Getting Started with Create React App
+# graphql-dashboard-wizard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Dependencies chosen
 
-## Available Scripts
+- msw
+- material-ui
+- react-hook-form
+- react-charts
+- react-grid-layout
 
-In the project directory, you can run:
+## Flow
 
-### `yarn start`
+1. Add Widget
+2. I have a GraphQL Query + Variables
+3. what chart you want (line, bubble, area, bar, column)
+4. Title
+5. Add Series is a button - point series to data (either root or somewhere in an object)  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+for each in data:  
+6. Tell me where the data is for "primary" / label (bar)  
+7. Tell me where the data is for "secondary"  
+8. Tell me where the data is for "radius" (bubble)  
+  
+All done:  
+9. Save Dashboard JSON / Copy Dashboard JSON
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Data Types
 
-### `yarn build`
+### Line Chart
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```json
+{
+  "label": "Series 1",
+  "data": [
+    {
+      "primary": "2021-01-17T03:00:00.000Z",
+      "secondary": 17
+    },
+    {
+      "primary": "2021-01-18T03:00:00.000Z",
+      "secondary": 88
+    },
+    {
+      "primary": "2021-01-19T03:00:00.000Z",
+      "secondary": 94
+    },
+    {
+      "primary": "2021-01-20T03:00:00.000Z",
+      "secondary": 97
+    },
+    {
+      "primary": "2021-01-21T03:00:00.000Z",
+      "secondary": 57
+    },
+    {
+      "primary": "2021-01-22T03:00:00.000Z",
+      "secondary": 61
+    },
+    {
+      "primary": "2021-01-23T03:00:00.000Z",
+      "secondary": 73
+    },
+    {
+      "primary": "2021-01-24T03:00:00.000Z",
+      "secondary": 53
+    },
+    {
+      "primary": "2021-01-25T03:00:00.000Z",
+      "secondary": 56
+    },
+    {
+      "primary": "2021-01-26T03:00:00.000Z",
+      "secondary": 22
+    }
+  ]
+}
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Bubble Chart
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```json
+{
+    "label": "Series 1",
+    "data": [
+      {
+        "primary": 96,
+        "secondary": 41,
+        "radius": 5
+      },
+      {
+        "primary": 62,
+        "secondary": 68,
+        "radius": 1
+      },
+      {
+        "primary": 18,
+        "secondary": 19,
+        "radius": 7
+      },
+      {
+        "primary": 52,
+        "secondary": 21,
+        "radius": 5
+      },
+      {
+        "primary": 27,
+        "secondary": 12,
+        "radius": 8
+      },
+      {
+        "primary": 47,
+        "secondary": 41,
+        "radius": 2
+      },
+      {
+        "primary": 27,
+        "secondary": 51,
+        "radius": 12
+      },
+      {
+        "primary": 42,
+        "secondary": 84,
+        "radius": 7
+      },
+      {
+        "primary": 10,
+        "secondary": 44,
+        "radius": 1
+      },
+      {
+        "primary": 4,
+        "secondary": 30,
+        "radius": 9
+      }
+    ]
+  }
+  ```
 
-### `yarn eject`
+### Area Chart
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  ```json
+  {
+    "label": "Series 1",
+    "data": [
+      {
+        "primary": "2021-01-17T03:00:00.000Z",
+        "secondary": 12
+      },
+      {
+        "primary": "2021-01-17T03:30:00.000Z",
+        "secondary": 5
+      },
+      {
+        "primary": "2021-01-17T04:00:00.000Z",
+        "secondary": 31
+      },
+      {
+        "primary": "2021-01-17T04:30:00.000Z",
+        "secondary": 35
+      },
+      {
+        "primary": "2021-01-17T05:00:00.000Z",
+        "secondary": 92
+      },
+      {
+        "primary": "2021-01-17T05:30:00.000Z",
+        "secondary": 88
+      },
+      {
+        "primary": "2021-01-17T06:00:00.000Z",
+        "secondary": 11
+      },
+      {
+        "primary": "2021-01-17T06:30:00.000Z",
+        "secondary": 4
+      },
+      {
+        "primary": "2021-01-17T07:00:00.000Z",
+        "secondary": 97
+      },
+      {
+        "primary": "2021-01-17T07:30:00.000Z",
+        "secondary": 81
+      }
+    ]
+  }
+  ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Bar Chart
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+  ```json
 
-## Learn More
+  {
+    "label": "Series 1",
+    "data": [
+      {
+        "primary": "Ordinal Group 0",
+        "secondary": 57
+      },
+      {
+        "primary": "Ordinal Group 1",
+        "secondary": 35
+      },
+      {
+        "primary": "Ordinal Group 2",
+        "secondary": 30
+      },
+      {
+        "primary": "Ordinal Group 3",
+        "secondary": 95
+      },
+      {
+        "primary": "Ordinal Group 4",
+        "secondary": 37
+      },
+      {
+        "primary": "Ordinal Group 5",
+        "secondary": 40
+      },
+      {
+        "primary": "Ordinal Group 6",
+        "secondary": 39
+      },
+      {
+        "primary": "Ordinal Group 7",
+        "secondary": 97
+      },
+      {
+        "primary": "Ordinal Group 8",
+        "secondary": 3
+      },
+      {
+        "primary": "Ordinal Group 9",
+        "secondary": 90
+      }
+    ]
+  }
+]
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Column Chart
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```json
+  {
+    "label": "Series 1",
+    "data": [
+      {
+        "primary": "Ordinal Group 0",
+        "secondary": 35
+      },
+      {
+        "primary": "Ordinal Group 1",
+        "secondary": 28
+      },
+      {
+        "primary": "Ordinal Group 2",
+        "secondary": 73
+      }
+    ]
+  }
+]
+```
