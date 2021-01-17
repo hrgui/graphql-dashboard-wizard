@@ -4,6 +4,9 @@ import "react-grid-layout/css/styles.css";
 import React, {useState} from 'react';
 import {WidthProvider, Responsive } from 'react-grid-layout';
 import {map} from 'lodash';
+import { Button } from '@material-ui/core';
+import Wizard from './Wizard';
+import DashboardWidget from './DashboardWidget';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -40,62 +43,22 @@ function useLocalStorage(key, initialValue) {
     }
   };
 
-  return [storedValue, setValue];
+  const clearValue = () => {
+    window.localStorage.removeItem(key);
+  }
+
+  return [storedValue, setValue, clearValue];
 }
 
 function generateLayout() {
-  return [
-    {
-      "w": 2,
-      "h": 1,
-      "x": 0,
-      "y": 0,
-      "i": "0",
-      "moved": false,
-      "static": false
-    },
-    {
-      "w": 2,
-      "h": 1,
-      "x": 2,
-      "y": 0,
-      "i": "1",
-      "moved": false,
-      "static": false
-    },
-    {
-      "w": 2,
-      "h": 1,
-      "x": 4,
-      "y": 0,
-      "i": "2",
-      "moved": false,
-      "static": false
-    },
-    {
-      "w": 2,
-      "h": 1,
-      "x": 6,
-      "y": 0,
-      "i": "3",
-      "moved": false,
-      "static": false
-    },
-    {
-      "w": 2,
-      "h": 1,
-      "x": 8,
-      "y": 0,
-      "i": "4",
-      "moved": false,
-      "static": false
-    }
-  ]
+  return []
 }
 
 
 function App() {
-  const [layout, setLayout] = useLocalStorage('layout', generateLayout());
+  const [layout, setLayout, clearLayout] = useLocalStorage('layout', generateLayout());
+  const [wizardOpen, setWizardOpen] = React.useState(false);
+  const [widgetCount, setWidgetCount] = React.useState(layout.length);
 
   function generateDOM() {
     return map(layout, function(l, i) {
@@ -109,24 +72,61 @@ function App() {
               Static - {i}
             </span>
           ) : (
-            <span className="text">{i}</span>
+            <DashboardWidget {...l} />
           )}
         </div>
       );
     });
   }
 
-  function onLayoutChange(z) {
-    setLayout(z);
+  function onLayoutChange(nlayout) {
+    // console.log(z);
+  //  setLayout(z);
+    console.log(layout);
+    setLayout(nlayout.map(nl => {
+      const oldValues = layout.find(l => l.i === nl.i);
+      return {...oldValues, ...nl};
+    }));
+  }
+
+  function handleResetLayout() {
+    clearLayout();
+    setWidgetCount(0);
+    setLayout(generateLayout());
+  }
+
+  function handleWizardClose() {
+    setWizardOpen(false);
+  }
+
+  function handleAddWidget() {
+    setWizardOpen(true);
   }
 
 
   return (
+    <>
+   <Wizard open={wizardOpen} onClose={handleWizardClose} onSubmit={(newWidget) => {
+    //  console.log('sup');
+    
+    newWidget.w = +newWidget.w;
+    newWidget.h = +newWidget.h;
+    newWidget.x = +newWidget.x;
+    newWidget.y = +newWidget.y;
+    newWidget.i = `${widgetCount}`;
+    setWidgetCount(widgetCount + 1);
+    
+    console.log('widgetAdded', newWidget);
+     setLayout([...layout, newWidget]);
+     setWizardOpen(false);
+   }} />
     <div style={{display: "flex"}}>
     <div style={{marginRight: "16px"}}>
       <pre>{JSON.stringify(layout, null, 2)}</pre>
     </div>
     <div style={{width: "100%"}}>
+      <Button onClick={handleAddWidget}>Add Widget</Button>
+      <Button onClick={handleResetLayout}>Reset Layout</Button>
     <ResponsiveReactGridLayout
     layouts={{lg: layout}}
     // onBreakpointChange={this.onBreakpointChange}
@@ -144,6 +144,7 @@ function App() {
   </ResponsiveReactGridLayout>
     </div>
   </div>
+  </>
   );
 }
 

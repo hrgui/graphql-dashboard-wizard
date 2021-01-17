@@ -1,5 +1,6 @@
 {
   "name": "@hrgui/graphql-dashboard-wizard",
+  "homepage": "https://www.harmanradix.com/graphql-dashboard-wizard",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,6 +10,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "faker": "^5.1.0",
     "graphiql": "^1.3.2",
     "graphql": "^15.4.0",
     "lodash": "^4.17.20",
