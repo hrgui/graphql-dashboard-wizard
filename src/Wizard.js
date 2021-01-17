@@ -4,7 +4,8 @@ import { Modal, Button } from "@material-ui/core";
 import { useForm, useFieldArray } from "react-hook-form";
 
 function Wizard({onSubmit: _onSubmit, ...props}) {
-  const { control, register, handleSubmit, watch, errors } = useForm({
+  // errors
+  const { control, register, handleSubmit, watch } = useForm({
     defaultValues: {
       w: 5,
       h: 3,
