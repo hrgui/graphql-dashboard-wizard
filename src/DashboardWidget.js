@@ -1,11 +1,8 @@
 import React from 'react'
 import { Chart } from "react-charts";
-import ResizableBox from './ResizableBox';
 import faker from 'faker';
 
-function DashboardWidget() {
-
-
+function DashboardWidget(props) {
   const series = React.useMemo(
     () => ({
       showPoints: false,
@@ -74,12 +71,7 @@ function DashboardWidget() {
   }], []);
 
   return (
-    <div>
-      DashboardWidget
-      <ResizableBox>
-      <Chart data={data} series={series} axes={axes} tooltip />
-</ResizableBox>
-    </div>
+    <Chart data={data} series={series} axes={axes} tooltip />
   )
 }
 
