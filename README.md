@@ -1,4 +1,11 @@
 # graphql-dashboard-wizard
+This is a POC for the following:
+
+Given a Dashboard Layout, some GraphQL Queries (and possibly variables), can we make a customizable dashboard, aka Grafana / Stackdriver / New Relic, etc? 
+
+Yes. This repo is not the most efficient in terms of performance, but it shows that it is possible.
+
+Data is all mocked - see src/generate.js on how the fixture is generated. GraphQL is mocked via apollo-client/schema-link.
 
 # Dependencies chosen
 
