@@ -65,10 +65,10 @@ function Wizard({onSubmit: _onSubmit, ...props}) {
           </div>
 
           <div>
-            Width: <input type="number" id="w" name="w" ref={register} />
-            Height: <input type="number" id="h" name="h" ref={register} />
-            x: <input type="number" id="x" name="x" ref={register} />
-            x: <input type="number" id="y" name="y" ref={register} />
+            Width: <input type="number" id="w" name="w" ref={register} /><br/>
+            Height: <input type="number" id="h" name="h" ref={register} /><br/>
+            x: <input type="number" id="x" name="x" ref={register} /><br/>
+            y: <input type="number" id="y" name="y" ref={register} /><br/>
           </div>
 
           <br />
