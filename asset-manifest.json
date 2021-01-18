@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/graphql-dashboard-wizard/static/css/main.a63333f7.chunk.css",
+    "main.js": "/graphql-dashboard-wizard/static/js/main.7a8e04a0.chunk.js",
+    "main.js.map": "/graphql-dashboard-wizard/static/js/main.7a8e04a0.chunk.js.map",
+    "runtime-main.js": "/graphql-dashboard-wizard/static/js/runtime-main.1ea5d5c3.js",
+    "runtime-main.js.map": "/graphql-dashboard-wizard/static/js/runtime-main.1ea5d5c3.js.map",
+    "static/css/2.f43fc816.chunk.css": "/graphql-dashboard-wizard/static/css/2.f43fc816.chunk.css",
+    "static/js/2.3108ba42.chunk.js": "/graphql-dashboard-wizard/static/js/2.3108ba42.chunk.js",
+    "static/js/2.3108ba42.chunk.js.map": "/graphql-dashboard-wizard/static/js/2.3108ba42.chunk.js.map",
+    "static/js/3.67f58df9.chunk.js": "/graphql-dashboard-wizard/static/js/3.67f58df9.chunk.js",
+    "static/js/3.67f58df9.chunk.js.map": "/graphql-dashboard-wizard/static/js/3.67f58df9.chunk.js.map",
+    "index.html": "/graphql-dashboard-wizard/index.html",
+    "static/css/2.f43fc816.chunk.css.map": "/graphql-dashboard-wizard/static/css/2.f43fc816.chunk.css.map",
+    "static/css/main.a63333f7.chunk.css.map": "/graphql-dashboard-wizard/static/css/main.a63333f7.chunk.css.map",
+    "static/js/2.3108ba42.chunk.js.LICENSE.txt": "/graphql-dashboard-wizard/static/js/2.3108ba42.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1ea5d5c3.js",
+    "static/css/2.f43fc816.chunk.css",
+    "static/js/2.3108ba42.chunk.js",
+    "static/css/main.a63333f7.chunk.css",
+    "static/js/main.7a8e04a0.chunk.js"
+  ]
+}
