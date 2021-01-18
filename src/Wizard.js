@@ -4,15 +4,6 @@ import { Modal, Button } from "@material-ui/core";
 import { useForm, useFieldArray } from "react-hook-form";
 
 function Wizard({onSubmit: _onSubmit, ...props}) {
-    /*
-  player_logins_agg {
-  sum
-  max
-  min
-}
-*/
-
-
   // errors
   const { control, register, handleSubmit, watch } = useForm({
     defaultValues: {
