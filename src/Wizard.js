@@ -4,6 +4,15 @@ import { Modal, Button } from "@material-ui/core";
 import { useForm, useFieldArray } from "react-hook-form";
 
 function Wizard({onSubmit: _onSubmit, ...props}) {
+    /*
+  player_logins_agg {
+  sum
+  max
+  min
+}
+*/
+
+
   // errors
   const { control, register, handleSubmit, watch } = useForm({
     defaultValues: {
@@ -80,6 +89,7 @@ function Wizard({onSubmit: _onSubmit, ...props}) {
               <option value="bubble">bubble</option>
               <option value="area">area</option>
               <option value="bar">bar</option>
+              <option value="sum_min_max">sum_min_max</option>
             </select>
           </div>
 

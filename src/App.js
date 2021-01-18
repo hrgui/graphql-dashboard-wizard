@@ -49,8 +49,82 @@ function useLocalStorage(key, initialValue) {
   return [storedValue, setValue, clearValue];
 }
 
+const DEFAULT_LAYOUT = [
+  {
+    "title": "widget-1610935219422",
+    "w": 5,
+    "h": 3,
+    "x": 0,
+    "y": 0,
+    "widget_type": "line",
+    "query": "query LineChartData {\n  player_logins {\n    timestamp\n    count\n  }\n}\n      ",
+    "series": [
+      {
+        "label": "Logins",
+        "datasource": "player_logins",
+        "primary": "timestamp",
+        "secondary": "count"
+      }
+    ],
+    "i": "0",
+    "moved": false,
+    "static": false
+  },
+  {
+    "title": "widget-1610935501685",
+    "w": 5,
+    "h": 3,
+    "x": 5,
+    "y": 0,
+    "widget_type": "line",
+    "query": "query LineChartData {\n  player_logins(min_date:\"2021-12-01\", max_date: \"2022-01-01\") {\n    timestamp\n    count\n  }\n}\n      ",
+    "series": [
+      {
+        "label": "Logins",
+        "datasource": "player_logins",
+        "primary": "timestamp",
+        "secondary": "count"
+      }
+    ],
+    "i": "1",
+    "moved": false,
+    "static": false
+  },
+  {
+    "title": "widget-1610935501685",
+    "w": 5,
+    "h": 3,
+    "x": 0,
+    "y": 3,
+    "widget_type": "sum_min_max",
+    "query": `
+
+query SumMinMaxData {
+  player_logins_agg {
+    sum
+    min
+    max
+  }
+}   
+    
+`,
+    "series": [
+      {
+        "label": "Logins Aggregrates",
+        "datasource": "player_logins_agg",
+        "sum": "sum",
+        "min": "min",
+        "max": "max"
+      }
+    ],
+    "i": "2",
+    "moved": false,
+    "static": false
+  }
+];
+
 function generateLayout() {
-  return [];
+  return DEFAULT_LAYOUT;
 }
 
 function App() {
@@ -79,7 +153,7 @@ function App() {
 
   function handleResetLayout() {
     clearLayout();
-    setWidgetCount(0);
+    setWidgetCount(DEFAULT_LAYOUT.length);
     setLayout(generateLayout());
   }
 
@@ -97,8 +171,6 @@ function App() {
         open={wizardOpen}
         onClose={handleWizardClose}
         onSubmit={(newWidget) => {
-          //  console.log('sup');
-
           newWidget.w = +newWidget.w;
           newWidget.h = +newWidget.h;
           newWidget.x = +newWidget.x;
@@ -111,10 +183,7 @@ function App() {
           setWizardOpen(false);
         }}
       />
-      <div style={{ display: "flex" }}>
-        <div style={{ marginRight: "16px" }}>
-          <pre>{JSON.stringify(layout, null, 2)}</pre>
-        </div>
+      <div>
         <div style={{ width: "100%" }}>
           <Button onClick={handleAddWidget}>Add Widget</Button>
           <Button onClick={handleResetLayout}>Reset Layout</Button>
@@ -125,6 +194,9 @@ function App() {
           >
             {generateDOM()}
           </ResponsiveReactGridLayout>
+        </div>
+        <div style={{ marginRight: "16px" }}>
+          <pre>{JSON.stringify(layout, null, 2)}</pre>
         </div>
       </div>
     </>

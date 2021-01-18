@@ -29,14 +29,14 @@ function LineChartWidget(props) {
 
         return {
           label: series.label,
-          data: datasource.map((dataSourceRecord) => {
+          data: datasource?.map((dataSourceRecord) => {
             // TODO radius support
             // TODO: assume it may not be date
             return {
               primary: new Date(get(dataSourceRecord, series.primary)),
               secondary: get(dataSourceRecord, series.secondary),
             };
-          }),
+          }) || [],
         };
       }),
     [props.series, props.data]

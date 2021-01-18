@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { gql, ApolloClient, InMemoryCache } from '@apollo/client';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { SchemaLink } from '@apollo/client/link/schema';
 const data = require('./data.json');
@@ -10,16 +10,71 @@ const typeDefs = `
     count: Float
   }
 
+  type PlayerLoginsAgg {
+    sum: Float
+    max: Float
+    min: Float
+  }
+
   type Query {
-    hello: String
-    player_logins: [PlayerLoginBuckets]
+    player_logins(min_date: String, max_date: String): [PlayerLoginBuckets]
+    player_logins_agg: PlayerLoginsAgg
   }
 `;
 
 const resolvers = {
   Query: {
-    hello: () => "world",
-    player_logins: () => data
+    player_logins: (root, args) => {
+      let overallData = data;
+
+
+      if (args.min_date) {
+        const minDate = new Date(args.min_date);
+        overallData = overallData.filter(({timestamp}) => {
+          return new Date(timestamp) >= minDate;
+        })
+      }
+
+      if (args.max_date) {
+        const maxDate = new Date(args.max_date);
+        overallData = overallData.filter(({timestamp}) => {
+          return new Date(timestamp) <= maxDate;
+        });
+      }
+
+
+      return overallData;
+    },
+    player_logins_agg: (root, args) => {
+      return {};
+    }
+  },
+  PlayerLoginsAgg: {
+    sum: () => {
+      return data.reduce((pV, {count}) => pV + count, 0)
+    },
+    max: () => {
+      let max = Number.MIN_SAFE_INTEGER;
+
+      for (let i = 0 ; i < data.length; i++) {
+        if (data[i].count > max) {
+          max = data[i].count;
+        }
+      }
+
+      return max;
+    },
+    min: () => {
+      let min = Number.MAX_SAFE_INTEGER;
+
+      for (let i = 0 ; i < data.length; i++) {
+        if (data[i].count < min) {
+          min = data[i].count;
+        }
+      }
+
+      return min;
+    }
   }
 };
 
@@ -35,5 +90,8 @@ export const graphqlClient = new ApolloClient({
   cache: new InMemoryCache(),
   link: new SchemaLink({ schema })
 });
+
+window.gql = gql;
+window.graphqlClient = graphqlClient;
 
 export default graphqlClient;

@@ -5,11 +5,16 @@ function generateData() {
 
   const data = [];
 
-  for (let i = 0; i < 25; i++) {
+
+  const pointerDate = new Date("2021-01-01 00:00:00");
+  
+  for (let i = 0; i < 365; i++) {
     data.push({
-      timestamp: faker.date.recent(faker.random.number(30)),
+      timestamp: pointerDate.toString(),
       count: faker.random.number(20000)
     });
+
+    pointerDate.setDate(pointerDate.get1Date() + 1)
   }
 
   
