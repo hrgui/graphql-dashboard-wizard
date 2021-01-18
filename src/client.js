@@ -17,7 +17,7 @@ const typeDefs = `
   }
 
   type Query {
-    player_logins(min_date: String, max_date: String): [PlayerLoginBuckets]
+    player_logins(min_date: String, max_date: String, overlay: Boolean): [PlayerLoginBuckets]
     player_logins_agg: PlayerLoginsAgg
   }
 `;
@@ -39,6 +39,18 @@ const resolvers = {
         const maxDate = new Date(args.max_date);
         overallData = overallData.filter(({timestamp}) => {
           return new Date(timestamp) <= maxDate;
+        });
+      }
+
+      if (args.overlay) {
+        // TODO: this is naive - it assumes same interval
+        overallData = overallData.map(({timestamp, ...other}) => {
+          const origTimestamp = new Date(timestamp);
+
+          const overlayTimestamp = new Date("2021-01-01");
+          overlayTimestamp.setDate(origTimestamp.getDate())
+
+          return {...other, timestamp: overlayTimestamp.toString()};
         });
       }
 

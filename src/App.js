@@ -120,6 +120,55 @@ query SumMinMaxData {
     "i": "2",
     "moved": false,
     "static": false
+  },
+  {
+    "title": "widget-1610935501685",
+    "w": 5,
+    "h": 3,
+    "x": 5,
+    "y": 3,
+    "widget_type": "line",
+    "query": `
+
+query LineChartData {
+  jan_logins: player_logins(min_date: "2021-01-01", max_date: "2021-01-28", overlay: true) {
+    timestamp
+    count
+  },
+  feb_logins: player_logins(min_date: "2021-02-01", max_date: "2021-02-28", overlay: true) {
+    timestamp
+    count
+  },
+  mar_logins: player_logins(min_date: "2021-03-01", max_date: "2021-03-28", overlay: true) {
+    timestamp
+    count
+  }
+}
+    
+`,
+    "series": [
+      {
+        "label": "January Logins",
+        "datasource": "jan_logins",
+        "primary": "timestamp",
+        "secondary": "count"
+      },
+      {
+        "label": "February Logins",
+        "datasource": "feb_logins",
+        "primary": "timestamp",
+        "secondary": "count"
+      },
+      {
+        "label": "March Logins",
+        "datasource": "mar_logins",
+        "primary": "timestamp",
+        "secondary": "count"
+      }
+    ],
+    "i": "3",
+    "moved": false,
+    "static": false
   }
 ];
 
